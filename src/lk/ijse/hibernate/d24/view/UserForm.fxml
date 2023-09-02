@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="pane" prefHeight="700.0" prefWidth="1370.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hibernate.d24.controller.UserFormController">
+    <children>
+      <ImageView fitHeight="700.0" fitWidth="1370.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Downloads/Frame 4 (5).png" />
+         </image>
+      </ImageView>
+        <Text fx:id="txtName" fill="#46b646" layoutX="560.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lakshan Rashmika" textAlignment="CENTER" wrappingWidth="254.66663265228271">
+            <font>
+                <Font name="Helvetica Bold" size="30.0" />
+            </font>
+        </Text>
+        <Text fill="#46b646" layoutX="506.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username :">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Text>
+        <Text fill="#46b646" layoutX="507.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password :">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Text>
+        <Text fx:id="txtUsername" fill="#46b646" layoutX="619.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="user">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Text>
+        <Text fx:id="txtPassword" fill="#46b646" layoutX="618.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1234">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Text>
+        <Text fill="#46b646" layoutX="717.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tel :">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Text>
+        <Text fx:id="txtTel" fill="#46b646" layoutX="756.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="071 3988 628">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Text>
+        <Text fill="#46b646" layoutX="547.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change Username &amp; Password">
+            <font>
+                <Font name="Helvetica Bold" size="20.0" />
+            </font>
+        </Text>
+        <Text fill="#46b646" layoutX="503.0" layoutY="352.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Username :">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Text>
+        <TextField fx:id="txtCurrentUsername" layoutX="621.0" layoutY="361.0" prefHeight="27.0" prefWidth="249.0" />
+        <Text fill="#46b646" layoutX="510.0" layoutY="416.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Username :">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Text>
+        <TextField fx:id="txtNewUsername" layoutX="621.0" layoutY="425.0" prefHeight="27.0" prefWidth="249.0" />
+        <Text fill="#46b646" layoutX="511.0" layoutY="482.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Password :">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Text>
+        <TextField fx:id="txtNewPassword" layoutX="621.0" layoutY="488.0" prefHeight="27.0" prefWidth="249.0" />
+        <Text fill="#46b646" layoutX="511.0" layoutY="538.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password :">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Text>
+        <TextField fx:id="txtConfirmPassword" layoutX="625.0" layoutY="546.0" prefHeight="27.0" prefWidth="249.0" />
+        <JFXButton layoutX="776.0" layoutY="605.0" onAction="#btnSaveChangesOnAction" style="-fx-background-color: #46b646;" text="Save Changes" textFill="WHITE" />
+    </children>
+</AnchorPane>
