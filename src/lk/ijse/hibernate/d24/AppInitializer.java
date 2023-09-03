@@ -18,7 +18,7 @@ public class AppInitializer extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        URL resource = this.getClass().getResource("/lk/ijse/hibernate/d24/view/LoginForm.fxml");
+        URL resource = this.getClass().getResource("/lk/ijse/hibernate/d24/view/DashboardForm.fxml");
         Parent window = FXMLLoader.load(resource);
         Scene scene = new Scene(window);
         primaryStage.setScene(scene);primaryStage.initStyle(StageStyle.UNDECORATED);
