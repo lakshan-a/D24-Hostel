@@ -92,7 +92,7 @@
         <TextField fx:id="txtReservationIdReg" layoutX="113.0" layoutY="302.0" prefHeight="25.0" prefWidth="188.0" />
         <TextField fx:id="txtFldStudentIdReg" layoutX="113.0" layoutY="398.0" prefHeight="25.0" prefWidth="188.0" />
         <TextField fx:id="txtFldRoomTypeIdReg" layoutX="399.0" layoutY="398.0" prefHeight="25.0" prefWidth="188.0" />
-        <ComboBox fx:id="cmbStatusReg" layoutX="114.0" layoutY="502.0" prefHeight="25.0" prefWidth="188.0" />
+        <ComboBox fx:id="cmbStatusReg" layoutX="114.0" layoutY="502.0" prefHeight="25.0" prefWidth="188.0" stylesheets="@css/StudentComboBox.css" />
         <TextField fx:id="txtFldDateReg" layoutX="399.0" layoutY="502.0" prefHeight="25.0" prefWidth="188.0" />
         <Text layoutX="92.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation ID :">
             <font>
@@ -122,7 +122,7 @@
         <TextField fx:id="txtFldReservationIdSearch" layoutX="737.0" layoutY="300.0" onAction="#txtFldReservationIdOnAction" prefHeight="25.0" prefWidth="188.0" />
         <TextField fx:id="txtFldStudentIdSearch" layoutX="737.0" layoutY="396.0" prefHeight="25.0" prefWidth="188.0" />
         <TextField fx:id="txtFldRoomTypeIdSearch" layoutX="1023.0" layoutY="396.0" prefHeight="25.0" prefWidth="188.0" />
-        <ComboBox fx:id="cmbStatusSearch" layoutX="738.0" layoutY="500.0" prefHeight="25.0" prefWidth="188.0" />
+        <ComboBox fx:id="cmbStatusSearch" layoutX="738.0" layoutY="500.0" prefHeight="25.0" prefWidth="188.0" stylesheets="@css/StudentComboBox.css" />
         <TextField fx:id="txtFldDateSearch" layoutX="1023.0" layoutY="500.0" prefHeight="25.0" prefWidth="188.0" />
         <Text layoutX="716.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation ID :">
             <font>
