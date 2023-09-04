@@ -24,12 +24,12 @@
         <TextField fx:id="txtFldUsername" layoutX="351.0" layoutY="325.0" prefHeight="25.0" prefWidth="236.0" stylesheets="@css/Login.css" />
         <PasswordField fx:id="txtPassFldPassword" layoutX="351.0" layoutY="412.0" prefHeight="25.0" prefWidth="236.0" stylesheets="@css/Login.css" />
         <TextField fx:id="txtFldPassword" layoutX="351.0" layoutY="412.0" prefHeight="25.0" prefWidth="236.0" stylesheets="@css/Login.css" />
-        <ImageView fx:id="imgOpenEye" fitHeight="45.0" fitWidth="45.0" layoutX="587.0" layoutY="402.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="imgOpenEye" fitHeight="45.0" fitWidth="45.0" layoutX="587.0" layoutY="402.0" onMouseClicked="#openEyeOnMouseClicked" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@assest/Material Icons_e8f4(2)_64.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="imgCloseEye" fitHeight="45.0" fitWidth="45.0" layoutX="587.0" layoutY="402.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="imgCloseEye" fitHeight="45.0" fitWidth="45.0" layoutX="587.0" layoutY="402.0" onMouseClicked="#closeEyeOnMouseClicked" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@assest/Material Icons_e8f5(1)_64.png" />
             </image>

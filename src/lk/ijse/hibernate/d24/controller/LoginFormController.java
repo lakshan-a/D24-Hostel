@@ -1,40 +1,69 @@
 package lk.ijse.hibernate.d24.controller;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.hibernate.d24.bo.BOFactory;
+import lk.ijse.hibernate.d24.bo.custom.UserBO;
+import lk.ijse.hibernate.d24.util.Navigation;
+import lk.ijse.hibernate.d24.util.Routes;
+
+import java.io.IOException;
 
 public class LoginFormController {
+    public AnchorPane primaryPane;
+    public TextField txtFldUsername;
+    public TextField txtFldPassword;
+    public PasswordField txtPassFldPassword;
+    public ImageView imgOpenEye;
+    public ImageView imgCloseEye;
 
-    @FXML
-    private ImageView imgCloseEye;
+    UserBO userBO = (UserBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.USER);
 
-    @FXML
-    private ImageView imgOpenEye;
+    static String username;
 
-    @FXML
-    private AnchorPane primaryPane;
+    public void initialize(){
+        txtFldPassword.setVisible(false);
+        imgOpenEye.setVisible(false);
+    }
 
-    @FXML
-    private TextField txtFldPassword;
+    public void btnSignInOnActiom(ActionEvent actionEvent) throws IOException {
 
-    @FXML
-    private TextField txtFldUsername;
+        username = txtFldUsername.getText();
 
-    @FXML
-    private PasswordField txtPassFldPassword;
+        String password = userBO.getPassword(txtFldUsername.getText());
 
-    @FXML
-    void btnCloseOnAction(ActionEvent event) {
+        if(txtPassFldPassword.getText() .equals(password) || txtFldPassword.getText() .equals(password)){
+            Navigation.navigate(Routes.DASHBOARDFORM, primaryPane);
+        }else{
+            new Alert(Alert.AlertType.WARNING,"Invalid Username or Password").show();
+        }
 
     }
 
-    @FXML
-    void btnSignInOnActiom(ActionEvent event) {
-
+    public void btnCloseOnAction(ActionEvent actionEvent) {
+        System.exit(0);
     }
 
+    public void openEyeOnMouseClicked(MouseEvent mouseEvent) {
+        imgCloseEye.setVisible(true);
+        imgOpenEye.setVisible(false);
+        txtFldPassword.setVisible(false);
+        txtPassFldPassword.setText(txtFldPassword.getText());
+        txtPassFldPassword.setVisible(true);
+        txtPassFldPassword.requestFocus();
+    }
+
+    public void closeEyeOnMouseClicked(MouseEvent mouseEvent) {
+        imgOpenEye.setVisible(true);
+        imgCloseEye.setVisible(false);
+        txtPassFldPassword.setVisible(false);
+        txtFldPassword.setText(txtPassFldPassword.getText());
+        txtFldPassword.setVisible(true);
+        txtFldPassword.requestFocus();
+    }
 }
