@@ -4,8 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-//import lk.ijse.hibernate.d24.repository.custom.StudentRepository;
-//import lk.ijse.hibernate.d24.repository.custom.impl.StudentRepositoryImpl;
+import lk.ijse.hibernate.d24.repository.custom.StudentRepository;
+import lk.ijse.hibernate.d24.repository.custom.impl.StudentRepositoryImpl;
 import lk.ijse.hibernate.d24.util.Navigation;
 import lk.ijse.hibernate.d24.util.Routes;
 
