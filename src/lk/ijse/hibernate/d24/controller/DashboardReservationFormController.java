@@ -1,88 +1,175 @@
 package lk.ijse.hibernate.d24.controller;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import lk.ijse.hibernate.d24.bo.BOFactory;
+import lk.ijse.hibernate.d24.bo.custom.ReservationBO;
+import lk.ijse.hibernate.d24.bo.custom.RoomBO;
+import lk.ijse.hibernate.d24.dto.ReservationDTO;
+import lk.ijse.hibernate.d24.util.Navigation;
+import lk.ijse.hibernate.d24.util.Routes;
+
+import java.io.IOException;
+import java.sql.Date;
 
 public class DashboardReservationFormController {
+    public TextField txtReservationIdReg;
+    public TextField txtFldStudentIdReg;
+    public TextField txtFldRoomTypeIdReg;
+    public TextField txtFldDateReg;
+    public TextField txtFldStudentIdSearch;
+    public TextField txtFldRoomTypeIdSearch;
+    public TextField txtFldReservationIdSearch;
+    public TextField txtFldDateSearch;
+    public AnchorPane secondaryPane;
+    public ComboBox cmbStatusReg;
+    public ComboBox cmbStatusSearch;
+    public Text txtNonAcRooms;
+    public Text txtNonAcFoodRooms;
+    public Text txtAcRooms;
+    public Text txtAcFoodRooms;
 
-    @FXML
-    private ComboBox<?> cmbStatusReg;
+    ReservationBO reservationBO = (ReservationBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.RESERVATION);
+    RoomBO roomBO = (RoomBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ROOM);
 
-    @FXML
-    private ComboBox<?> cmbStatusSearch;
+    public void initialize(){
+        cmbStatusReg.getItems().add("PAY");
+        cmbStatusReg.getItems().add("NOT PAY");
 
-    @FXML
-    private Text txtAcFoodRooms;
+        txtReservationIdReg.setText(reservationBO.nextResId());
 
-    @FXML
-    private Text txtAcRooms;
+        try {
+            txtAcRooms.setText(String.valueOf(roomBO.getRoomCount("RM-7896")));
+        }catch (Exception e){
+            txtAcRooms.setText("0");
+        }
 
-    @FXML
-    private TextField txtFldDateReg;
+        try {
+            txtAcFoodRooms.setText(String.valueOf(roomBO.getRoomCount("RM-0093")));
+        }catch (Exception e){
+            txtAcFoodRooms.setText("0");
+        }
 
-    @FXML
-    private TextField txtFldDateSearch;
+        try {
+            txtNonAcRooms.setText(String.valueOf(roomBO.getRoomCount("RM-1324")));
+        }catch (Exception e){
+            txtNonAcRooms.setText("0");
+        }
 
-    @FXML
-    private TextField txtFldReservationIdSearch;
+        try {
+            txtNonAcFoodRooms.setText(String.valueOf(roomBO.getRoomCount("RM-5467")));
+        }catch (Exception e){
+            txtNonAcFoodRooms.setText("0");
+        }
+    }
 
-    @FXML
-    private TextField txtFldRoomTypeIdReg;
+    public void btnRegisterOnAction(ActionEvent actionEvent) {
 
-    @FXML
-    private TextField txtFldRoomTypeIdSearch;
+        try {
+            reservationBO.saveReservation(new ReservationDTO(
+                    txtReservationIdReg.getText(),
+                    Date.valueOf(txtFldDateReg.getText()),
+                    txtFldStudentIdReg.getText(),
+                    txtFldRoomTypeIdReg.getText(),
+                    String.valueOf(cmbStatusReg.getValue())
+            ));
+            new Alert(Alert.AlertType.CONFIRMATION,"Reservation Placed Successfully").show();
+            clearReg();
+        }catch (Exception e){
+            new Alert(Alert.AlertType.ERROR,"Invalid Student ID or Room ID").show();
+        }
 
-    @FXML
-    private TextField txtFldStudentIdReg;
-
-    @FXML
-    private TextField txtFldStudentIdSearch;
-
-    @FXML
-    private Text txtNonAcFoodRooms;
-
-    @FXML
-    private Text txtNonAcRooms;
-
-    @FXML
-    private TextField txtReservationIdReg;
-
-    @FXML
-    void btnClearOnAction(ActionEvent event) {
+        initialize();
 
     }
 
-    @FXML
-    void btnDeleteOnAcion(ActionEvent event) {
-
+    private void clearReg(){
+        txtReservationIdReg.clear();
+        txtFldDateReg.clear();
+        txtFldStudentIdReg.clear();
+        txtFldRoomTypeIdReg.clear();
+        cmbStatusReg.setValue("");
     }
 
-    @FXML
-    void btnNotPayOnAcion(ActionEvent event) {
-
+    private void clearSearch(){
+        txtFldReservationIdSearch.clear();
+        txtFldDateSearch.clear();
+        txtFldStudentIdSearch.clear();
+        txtFldRoomTypeIdSearch.clear();
+        cmbStatusSearch.setValue("");
     }
 
-    @FXML
-    void btnRegisterOnAction(ActionEvent event) {
-
+    public void btnClearOnAction(ActionEvent actionEvent) {
+        clearReg();
+        clearSearch();
     }
 
-    @FXML
-    void btnUpdateOnAcion(ActionEvent event) {
+    public void txtFldReservationIdOnAction(ActionEvent actionEvent) {
 
+        try {
+            ReservationDTO reservationDTO = reservationBO.searchReservation(txtFldReservationIdSearch.getText());
+
+            txtFldReservationIdSearch.setText(reservationDTO.getResID());
+            txtFldDateSearch.setText(String.valueOf(reservationDTO.getDate()));
+            txtFldStudentIdSearch.setText(reservationDTO.getStudentID());
+            txtFldRoomTypeIdSearch.setText(reservationDTO.getRoomTypeID());
+
+            cmbStatusSearch.getItems().add("PAY");
+            cmbStatusSearch.getItems().add("NOT PAY");
+
+            if(reservationDTO.getStatus() .equals("PAY")){
+                cmbStatusSearch.setValue("PAY");
+            }else{
+                cmbStatusSearch.setValue("NOT PAY");
+            }
+
+        }catch (Exception e){
+            new Alert(Alert.AlertType.WARNING,"Reservation not Found").show();
+            clearSearch();
+        }
+
+        initialize();
     }
 
-    @FXML
-    void btnViewAllOnAcion(ActionEvent event) {
+    public void btnUpdateOnAcion(ActionEvent actionEvent) {
+        reservationBO.updateReservation(new ReservationDTO(
+                txtFldReservationIdSearch.getText(),
+                Date.valueOf(txtFldDateSearch.getText()),
+                txtFldStudentIdSearch.getText(),
+                txtFldRoomTypeIdSearch.getText(),
+                String.valueOf(cmbStatusSearch.getValue())
+        ));
 
+        new Alert(Alert.AlertType.CONFIRMATION,"Reservation Updated Successfully").show();
+        clearSearch();
+
+        initialize();
     }
 
-    @FXML
-    void txtFldReservationIdOnAction(ActionEvent event) {
+    public void btnDeleteOnAcion(ActionEvent actionEvent) {
+        reservationBO.deleteReservation(new ReservationDTO(
+                txtFldReservationIdSearch.getText(),
+                Date.valueOf(txtFldDateSearch.getText()),
+                txtFldStudentIdSearch.getText(),
+                txtFldRoomTypeIdSearch.getText(),
+                String.valueOf(cmbStatusSearch.getValue())
+        ));
 
+        new Alert(Alert.AlertType.CONFIRMATION,"Reservation Deleted Successfully").show();
+        clearSearch();
+
+        initialize();
     }
 
+    public void btnViewAllOnAcion(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.VIEWALLRESERVATIONS, secondaryPane);
+    }
+
+    public void btnNotPayOnAcion(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.NOTPAY, secondaryPane);
+    }
 }
