@@ -1,86 +1,210 @@
 package lk.ijse.hibernate.d24.controller;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import lk.ijse.hibernate.d24.bo.BOFactory;
+import lk.ijse.hibernate.d24.bo.custom.StudentBO;
+import lk.ijse.hibernate.d24.dto.StudentDTO;
+import lk.ijse.hibernate.d24.util.Navigation;
+import lk.ijse.hibernate.d24.util.Routes;
+import lk.ijse.hibernate.d24.util.Validation;
+
+import java.io.IOException;
+import java.sql.Date;
 
 public class DashboardStudentFormController {
+    public TextField txtFldStudentIdReg;
+    public TextField txtFldNameReg;
+    public TextField txtFldAddressReg;
+    public TextField txtFldDobReg;
+    public TextField txtFldTelReg;
+    public TextField txtFldNameSearch;
+    public TextField txtFldAddressSearch;
+    public TextField txtFldSDobSearch;
+    public TextField txtFldStdentIdSearch;
+    public TextField txtFldTelSearch;
+    public ComboBox cmbGender;
+    public ComboBox cmbGenderSearch;
+    public AnchorPane secondaryPane;
+    public Text txtInvalidTelError;
+    public Text txtInvalidDateError;
+    public Text txtInvalidNameError;
 
-    @FXML
-    private ComboBox<?> cmbGender;
 
-    @FXML
-    private ComboBox<?> cmbGenderSearch;
+    StudentBO studentBO = (StudentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STUDENT);
 
-    @FXML
-    private TextField txtFldAddressReg;
+    public void initialize(){
+        clearSearch();clearReg();
+        cmbGender.getItems().add("Male");
+        cmbGender.getItems().add("Female");
 
-    @FXML
-    private TextField txtFldAddressSearch;
+        txtInvalidDateError.setVisible(false);
+        txtInvalidNameError.setVisible(false);
+        txtInvalidTelError.setVisible(false);
 
-    @FXML
-    private TextField txtFldDobReg;
+        txtFldStudentIdReg.setText(studentBO.nextStudentId());
+    }
 
-    @FXML
-    private TextField txtFldNameReg;
+    boolean isAfter = true;
 
-    @FXML
-    private TextField txtFldNameSearch;
+    public void btnRegisterOnAction(ActionEvent actionEvent) throws InterruptedException {
 
-    @FXML
-    private TextField txtFldSDobSearch;
+        boolean isSuccess = false;
 
-    @FXML
-    private TextField txtFldStdentIdSearch;
+        if(Validation.validateLettersOnly(txtFldNameReg.getText())){
+            isSuccess = true;
+        }else{
+            isSuccess = false;
+            isAfter = false;
+            txtInvalidNameError.setVisible(true);
+        }
 
-    @FXML
-    private TextField txtFldStudentIdReg;
+        if(Validation.validateDateOnly(txtFldDobReg.getText())){
+            isSuccess = true;
+        }else{
+            isSuccess = false;
+            isAfter = false;
+            txtInvalidDateError.setVisible(true);
+        }
 
-    @FXML
-    private TextField txtFldTelReg;
+        if(Validation.validateNumbersOnly(txtFldTelReg.getText())){
+            isSuccess = true;
+        }else{
+            isSuccess = false;
+            isAfter = false;
+            txtInvalidTelError.setVisible(true);
+        }
 
-    @FXML
-    private TextField txtFldTelSearch;
 
-    @FXML
-    private Text txtInvalidDateError;
+        if(isSuccess){
+            studentBO.saveStudent(new StudentDTO(
+                    txtFldStudentIdReg.getText(),
+                    txtFldNameReg.getText(),
+                    txtFldAddressReg.getText(),
+                    String.valueOf(cmbGender.getValue()),
+                    Date.valueOf(txtFldDobReg.getText()),
+                    txtFldTelReg.getText()
+            ));
 
-    @FXML
-    private Text txtInvalidNameError;
+            new Alert(Alert.AlertType.CONFIRMATION,"Student Registered Successfully").show();
 
-    @FXML
-    private Text txtInvalidTelError;
-
-    @FXML
-    void btnClearOnAction(ActionEvent event) {
+            initialize();
+        }
 
     }
 
-    @FXML
-    void btnDeleteOnAcion(ActionEvent event) {
+    public void btnClearOnAction(ActionEvent actionEvent) {
+        clearSearch();
+        clearReg();
+    }
+
+    private void clearReg(){
+        txtFldStudentIdReg.clear();
+        txtFldNameReg.clear();
+        txtFldAddressReg.clear();
+        txtFldDobReg.clear();
+        txtFldTelReg.clear();
+        cmbGender.setValue("");
+    }
+
+    private void clearSearch(){
+        txtFldStdentIdSearch.clear();
+        txtFldNameSearch.clear();
+        txtFldAddressSearch.clear();
+        txtFldSDobSearch.clear();
+        txtFldTelSearch.clear();
+        cmbGenderSearch.setValue("");
+    }
+
+
+    public void btnUpdateOnAcion(ActionEvent actionEvent) {
+        studentBO.updateStudent(new StudentDTO(
+                txtFldStdentIdSearch.getText(),
+                txtFldNameSearch.getText(),
+                txtFldAddressSearch.getText(),
+                String.valueOf(cmbGenderSearch.getValue()),
+                Date.valueOf(txtFldSDobSearch.getText()),
+                txtFldTelSearch.getText()
+        ));
+
+        new Alert(Alert.AlertType.CONFIRMATION,"Student Updated Successfully").show();
+
+        initialize();
+    }
+
+    public void btnDeleteOnAcion(ActionEvent actionEvent) {
+        studentBO.deleteStudent(new StudentDTO(
+                txtFldStdentIdSearch.getText(),
+                txtFldNameSearch.getText(),
+                txtFldAddressSearch.getText(),
+                String.valueOf(cmbGenderSearch.getValue()),
+                Date.valueOf(txtFldSDobSearch.getText()),
+                txtFldTelSearch.getText()
+
+        ));
+
+        new Alert(Alert.AlertType.CONFIRMATION,"Student Deleted Successfully").show();
+        initialize();
+    }
+
+    public void btnViewAllOnAcion(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.VIEWALLSTUDENTS, secondaryPane);
+    }
+
+    public void txtFldSearchIdOnAction(ActionEvent actionEvent) {
+
+        try {
+            StudentDTO studentDTO = studentBO.searchStudent(txtFldStdentIdSearch.getText());
+
+            txtFldSDobSearch.setText(String.valueOf(studentDTO.getDob()));
+            txtFldTelSearch.setText(studentDTO.getTel());
+            txtFldAddressSearch.setText(studentDTO.getAddress());
+            txtFldNameSearch.setText(studentDTO.getName());
+            txtFldStdentIdSearch.setText(studentDTO.getStudentID());
+
+            cmbGenderSearch.getItems().add("Male");
+            cmbGenderSearch.getItems().add("Female");
+
+            if(studentDTO.getGender() .equals("Male")){
+                cmbGenderSearch.setValue("Male");
+            }else{
+                cmbGenderSearch.setValue("Female");
+            }
+
+
+        }catch (Exception e){
+            new Alert(Alert.AlertType.WARNING,"Student ID not Found").show();
+            clearSearch();
+        }
 
     }
 
-    @FXML
-    void btnRegisterOnAction(ActionEvent event) {
-
+    public void txtGenderOnMouseClicked(MouseEvent mouseEvent) {
+        if(!isAfter){ initialize();isAfter=true;}
     }
 
-    @FXML
-    void btnUpdateOnAcion(ActionEvent event) {
-
+    public void txtStIdOnMouseClicked(MouseEvent mouseEvent) {
+        if(!isAfter){ initialize();isAfter=true;}
     }
 
-    @FXML
-    void btnViewAllOnAcion(ActionEvent event) {
-
+    public void txtNameOnMouseClicked(MouseEvent mouseEvent) {
+        if(!isAfter){ initialize();isAfter=true;}
     }
 
-    @FXML
-    void txtFldSearchIdOnAction(ActionEvent event) {
-
+    public void txtAddressOnMouseClicked(MouseEvent mouseEvent) {
+        if(!isAfter){ initialize();isAfter=true;}
     }
 
+    public void txtDobOnMouseClicked(MouseEvent mouseEvent) {
+        if(!isAfter){ initialize();isAfter=true;}
+    }
+
+    public void txtTelOnMouseClicked(MouseEvent mouseEvent) {
+        if(!isAfter){ initialize();isAfter=true;}
+    }
 }
