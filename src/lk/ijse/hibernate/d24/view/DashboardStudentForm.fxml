@@ -37,11 +37,11 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Text>
-      <TextField fx:id="txtFldStudentIdReg" layoutX="113.0" layoutY="259.0" prefHeight="25.0" prefWidth="188.0" />
-      <TextField fx:id="txtFldNameReg" layoutX="113.0" layoutY="355.0" prefHeight="25.0" prefWidth="188.0" />
-      <TextField fx:id="txtFldDobReg" layoutX="399.0" layoutY="355.0" prefHeight="25.0" prefWidth="188.0" />
-      <ComboBox fx:id="cmbGender" layoutX="112.0" layoutY="540.0" prefHeight="25.0" prefWidth="188.0" stylesheets="@css/StudentComboBox.css" />
-      <TextField fx:id="txtFldTelReg" layoutX="399.0" layoutY="448.0" prefHeight="25.0" prefWidth="188.0" />
+      <TextField fx:id="txtFldStudentIdReg" layoutX="113.0" layoutY="259.0" onMouseClicked="#txtStIdOnMouseClicked" prefHeight="25.0" prefWidth="188.0" />
+      <TextField fx:id="txtFldNameReg" layoutX="113.0" layoutY="355.0" onMouseClicked="#txtNameOnMouseClicked" prefHeight="25.0" prefWidth="188.0" />
+      <TextField fx:id="txtFldDobReg" layoutX="399.0" layoutY="355.0" onMouseClicked="#txtDobOnMouseClicked" prefHeight="25.0" prefWidth="188.0" />
+      <ComboBox fx:id="cmbGender" layoutX="112.0" layoutY="540.0" onMouseClicked="#txtGenderOnMouseClicked" prefHeight="25.0" prefWidth="188.0" stylesheets="@css/StudentComboBox.css" />
+      <TextField fx:id="txtFldTelReg" layoutX="399.0" layoutY="448.0" onMouseClicked="#txtTelOnMouseClicked" prefHeight="25.0" prefWidth="188.0" />
       <Text layoutX="92.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student ID :">
          <font>
             <Font size="18.0" />
@@ -92,7 +92,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <TextField fx:id="txtFldAddressReg" layoutX="113.0" layoutY="450.0" prefHeight="25.0" prefWidth="188.0" />
+      <TextField fx:id="txtFldAddressReg" layoutX="113.0" layoutY="450.0" onMouseClicked="#txtAddressOnMouseClicked" prefHeight="25.0" prefWidth="188.0" />
       <Text layoutX="92.0" layoutY="443.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address :">
          <font>
             <Font size="18.0" />
