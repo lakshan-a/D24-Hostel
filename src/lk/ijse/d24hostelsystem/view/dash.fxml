@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="loadPane" prefHeight="610.0" prefWidth="1306.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.d24hostelsystem.controller.DashFormController">
+    <children>
+          <Label fx:id="roomsCount" layoutX="136.0" layoutY="1.0" prefHeight="101.0" prefWidth="103.0" text="00" textFill="WHITE">
+              <font>
+                  <Font name="System Bold" size="60.0" />
+              </font>
+          </Label>
+          <Label layoutX="240.0" layoutY="29.0" text="Rooms" textFill="WHITE">
+              <font>
+                  <Font size="32.0" />
+              </font>
+          </Label>
+          <Label fx:id="studentCount" layoutX="136.0" layoutY="210.0" prefHeight="101.0" prefWidth="103.0" text="00" textFill="WHITE">
+              <font>
+                  <Font name="System Bold" size="60.0" />
+              </font>
+          </Label>
+          <Label layoutX="240.0" layoutY="238.0" text="Students" textFill="WHITE">
+              <font>
+                  <Font size="32.0" />
+              </font>
+          </Label>
+          <Label fx:id="ReservationCount" layoutX="136.0" layoutY="418.0" prefHeight="101.0" prefWidth="103.0" text="00" textFill="WHITE">
+              <font>
+                  <Font name="System Bold" size="60.0" />
+              </font>
+          </Label>
+          <Label layoutX="240.0" layoutY="446.0" text="Reservations" textFill="WHITE">
+              <font>
+                  <Font size="32.0" />
+              </font>
+          </Label>
+    </children>
+</AnchorPane>

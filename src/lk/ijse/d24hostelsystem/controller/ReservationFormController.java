@@ -67,6 +67,7 @@ public class ReservationFormController {
     }
 
     public void updateReservationVisibleOnAction(ActionEvent actionEvent) {
+
     }
 
     public void deleteReservationVisibleOnAction(ActionEvent actionEvent) {

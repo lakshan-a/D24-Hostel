@@ -16,6 +16,9 @@ public class Navigation {
         Stage window = (Stage) Navigation.pane.getScene().getWindow();
 
         switch (route){
+            case DASH:
+                initUI("dash.fxml");
+                break;
             case DASHBOARD:
                 initUI("DashboardForm.fxml");
                 break;

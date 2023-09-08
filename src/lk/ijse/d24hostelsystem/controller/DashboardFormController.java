@@ -61,6 +61,6 @@ public class DashboardFormController {
     }
 
     public void BackOnAction(ActionEvent event) throws IOException {
-        Navigation.navigate(Routes.DASHBOARD,loadPane);
+        Navigation.navigate(Routes.DASH,loadPane);
     }
 }
